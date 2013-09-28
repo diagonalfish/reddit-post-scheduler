@@ -14,6 +14,7 @@ Requirements:
 To use:
 
 * Install PRAW, node.js, and other dependencies.
+* Edit postbot.py and change the subreddit, username, and password for the bot to post with.
 * Run 'npm install' in the web/ directory to install needed modules.
 * Open postscheduler.js and modify the username and password near the top.
 * Run 'node postscheduler.js' to start the web interface.
