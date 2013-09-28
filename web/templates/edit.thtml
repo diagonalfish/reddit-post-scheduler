@@ -1,0 +1,46 @@
+{% extends 'layout.thtml' %}
+
+{% block script %}
+var previewTimer = 0;
+
+$(function() {
+{% if not readonly %}
+    $('#posttime').datetimepicker({
+        dateFormat: "yy-mm-dd",
+        timeFormat: "HH:mm:ss",
+        stepMinute: 5,
+        stepSecond: 60,
+    });
+{% endif %}
+    $('#post-content').keydown(function() {
+        clearTimeout(previewTimer);
+        previewTimer = setTimeout("updatePreview()", 1200);
+    });
+    
+    if ($("#post-content").val() != "") {
+        updatePreview();
+    }
+});
+
+function updatePreview() {
+    $.get("/rmarkup", { text: $("#post-content").val() }, function(data) {
+        $("#post-preview").html(data);
+    });
+}
+{% endblock %}
+
+{% block content %}
+<form method="post" action="/edit">
+<input type="hidden" name="id" value="{{ id }}"/>
+Post time: <input type="text" id="posttime" name="posttime" value="{{ posttime }}"{% if readonly %} readonly{% endif %}></input><br/><br/>
+Title: <input type="text" name="title" size="60" value="{{ title }}"{% if readonly %} readonly{% endif %}></input><br/><br/>
+<textarea rows="15" cols="80" name="content" id="post-content"{% if readonly %} readonly{% endif %}>{{ content }}</textarea><br/><br/>
+
+{% if not readonly %}<input type="submit" value="Schedule Post"></input>{% endif %}
+</form>
+
+<h3>Preview</h3>
+
+<div id="post-preview"></div>
+
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends 'layout.thtml' %}
+
+{% block script %}
+   
+var deleteid = 0;
+
+$(function() {
+    $("#delete-confirm").dialog({
+        height: 170,
+        modal: true,
+        autoOpen: false,
+        buttons: {
+            "Delete": function() {
+                $(this).dialog("close");
+                window.location = "/delete/" + deleteid;
+            },
+            "Cancel": function() {
+                $(this).dialog("close");
+            },
+        }
+    });
+    $("a.delete").click(function() {
+        deleteid = $(this).attr("delete");
+        $("#delete-confirm").dialog( "open" );
+    });
+});
+
+{% endblock %}
+
+{% block content %}
+<h3><a href="/new">Schedule a new post</a></h3>
+
+<h3>Scheduled Posts</h3>
+<table>
+  <tr>
+    <td><b>Scheduled Time</b></td>
+    <td class="post-title"><b>Title</b></td>
+    <td></td>
+  </tr>
+{% for post in schedposts %}
+  <tr>
+    <td>{{ post.posttime }}</td>
+    <td class="post-title"><a href="/edit/{{ post.id }}">{{ post.title }}</a></td>
+    <td><a class="delete" delete="{{ post.id }}" href="#">Delete</a></td>
+  </tr>
+{% endfor %}
+</table>
+
+<h3>50 Most Recent Posts</h3>
+<table>
+  <tr>
+    <td><b>Post Time</b></td>
+    <td class="post-title"><b>Title</b></td>
+    <td>Create Post From</td>
+	<td>View on Reddit</td>
+  </tr>
+{% for post in pastposts %}
+  <tr>
+    <td>{{ post.posttime }}</td>
+    <td class="post-title"><a href="/pastpost/{{ post.id }}">{{ post.title }}</a></td>
+    <td><a href="/new/from/{{ post.id }}">Create</a></td>
+	<td>{% if not post.url == '' %}<a href="{{ post.url }}">View</a></td>{% endif %}
+  </tr>
+{% endfor %}
+</table>
+
+<div id="delete-confirm" title="Are you sure?">
+  <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>The post will be deleted for real. Are you sure?</p>
+</div>
+
+{% endblock %}
