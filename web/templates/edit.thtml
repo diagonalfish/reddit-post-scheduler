@@ -34,6 +34,12 @@ function updatePreview() {
 <input type="hidden" name="id" value="{{ id }}"/>
 Post time: <input type="text" id="posttime" name="posttime" value="{{ posttime }}"{% if readonly %} readonly{% endif %}></input><br/><br/>
 Title: <input type="text" name="title" size="60" value="{{ title }}"{% if readonly %} readonly{% endif %}></input><br/><br/>
+Post flair: <select name="flair">
+<option value=""></option>
+{% for flair in flairs %}
+<option value="{{ flair.id }}"{% if flair.id == sflair %} selected{% endif %}>{{ flair.text }}</option>
+{% endfor %}
+</select><br/><br/>
 <textarea rows="15" cols="80" name="content" id="post-content"{% if readonly %} readonly{% endif %}>{{ content }}</textarea><br/><br/>
 
 {% if not readonly %}<input type="submit" value="Schedule Post"></input>{% endif %}

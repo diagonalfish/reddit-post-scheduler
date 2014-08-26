@@ -23,6 +23,10 @@ r = praw.Reddit(user_agent="Reddit Post Scheduler v0.2 by /u/diagonalfish", site
 r.login(ruser, rpass)
 submission = r.submit(rsub, postdata[1], text=postdata[2])
 submission.distinguish()
+if (postdata[8]):
+    c.execute("SELECT * FROM flair WHERE id = ?", (postdata[8],))
+    flair = c.fetchone()
+    submission.set_flair(flair_text = flair[1], flair_css_class = flair[2])
 
 # Mark it as posted
 c = db.cursor()

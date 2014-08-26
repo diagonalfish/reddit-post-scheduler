@@ -1,7 +1,7 @@
 {
   "name": "reddit-postscheduler",
   "description": "Web interface portion of Reddit post-scheduler bot",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "author": "/u/diagonalfish",
   "dependencies": {
