@@ -24,7 +24,7 @@ function getFlairs() {
 
 app.get('/', function(req, res) {
     schedposts = db.sync.all("SELECT * FROM posts WHERE posted = 0 ORDER BY datetime(posttime) ASC");
-    pastposts = db.sync.all("SELECT * FROM posts WHERE posted = 1 ORDER BY datetime(posttime) DESC LIMIT 50");
+    pastposts = db.sync.all("SELECT * FROM posts WHERE posted = 1 ORDER BY datetime(posttime) DESC LIMIT 100");
 
     res.send(swig.renderFile('templates/index.thtml',
         { pagetitle: 'Reddit Post Scheduler', schedposts: schedposts, pastposts: pastposts}

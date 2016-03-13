@@ -1,11 +1,12 @@
 {
   "name": "reddit-postscheduler",
   "description": "Web interface portion of Reddit post-scheduler bot",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": true,
   "author": "/u/diagonalfish",
   "dependencies": {
-    "express": "3.x",
+    "express": "3.*",
+    "body-parser": "*",
     "sqlite3": "*",
     "snuownd": "*",
     "swig": "1.*",

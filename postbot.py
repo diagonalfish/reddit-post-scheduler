@@ -1,11 +1,15 @@
 import praw
 import datetime
 import sqlite3
+from prawoauth2 import PrawOAuth2Mini
 
 # Reddit creds
-rsub = "subreddit"
 ruser = "username"
-rpass = "password"
+rsub = "subreddit"
+app_key = "APPKEY"
+app_secret = "APPSECRET"
+access_token = "ACCESSTOKEN"
+refresh_token = "REFRESHTOKEN"
 
 # DB setup
 db = sqlite3.connect('posts.db')
@@ -19,8 +23,16 @@ if postdata == None:
     exit()
 
 # Post it!
-r = praw.Reddit(user_agent="Reddit Post Scheduler v0.2 by /u/diagonalfish", site_name='reddit_bypass_cdn')
-r.login(ruser, rpass)
+r = praw.Reddit(user_agent="Reddit Post Scheduler v0.2 by /u/diagonalfish")
+
+try:
+    oauth_helper = PrawOAuth2Mini(r, app_key=app_key,
+                                  app_secret=app_secret, access_token=access_token, refresh_token=refresh_token,
+                                  scopes=["read", "mysubreddits", "submit", "edit", "modlog", "modposts", "modflair", "identity"])
+except praw.errors.HTTPException as err:
+    print err._raw
+    exit()
+
 submission = r.submit(rsub, postdata[1], text=postdata[2])
 submission.distinguish()
 if (postdata[8]):

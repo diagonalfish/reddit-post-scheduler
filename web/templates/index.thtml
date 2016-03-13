@@ -46,7 +46,7 @@ $(function() {
 {% endfor %}
 </table>
 
-<h3>50 Most Recent Posts</h3>
+<h3>Recent Posts</h3>
 <table>
   <tr>
     <td><b>Post Time</b></td>

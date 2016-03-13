@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>SnuOwnd output tester</title>
+	<script type="text/javascript" src="snuownd.js"></script>
+	<style type="text/css">
+
+#toc, #html {
+	width: 45%;
+	position: absolute;
+	overflow-y: scroll;
+	border: thin solid black;
+	padding: 12px;
+}
+
+#toc {
+	left: 1em;
+	bottom: 1em;
+	height: 50%;
+	/*overflow-y: scroll;*/
+}
+#html {
+	/*position: absolute;*/
+	right: 1em;
+	
+	/*margin-left: 30em;*/
+	
+	height: 90%;
+}
+
+#html table {
+	border: thin solid grey;
+}
+
+#html table td, #html table th {
+	border: thin solid lightgrey;
+}
+#markdown {
+	float:left;
+	min-width: 45em;
+	min-height: 25em;
+	height: 50%;
+}
+	</style>
+</head>
+<body>
+	<textarea id="markdown" width="40"></textarea>
+	<div id="html"></div>
+	<div id="toc"></div>
+		<script type="text/javascript">
+var parser = SnuOwnd.getParser();
+var tocParser = SnuOwnd.getParser(SnuOwnd.getTocRenderer());
+
+document.getElementById('markdown').addEventListener('input', function(e) {
+	document.getElementById('toc').innerHTML = tocParser.render(e.target.value);
+	document.getElementById('html').innerHTML = parser.render(e.target.value);
+
+});
+
+	</script>
+</body>
+</html>
