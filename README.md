@@ -1,5 +1,6 @@
 reddit-post-scheduler
 =====================
+**2019/04/02: Don't use this!** It's probably insecure and out of date at this point, and I am no longer maintaining it. Use it as an example, but no more. Make sure you use current versions of dependencies and follow recommended practices for accessing the reddit API and serving web pages!
 
 Bot that posts scheduled posts to a subreddit, and web interface for scheduling posts (complete with previews!)
 
